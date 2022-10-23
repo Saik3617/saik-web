@@ -7,26 +7,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Locals -->
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <script src="../js/index.js"></script>
 </head>
 <body>
+    <div class="wrapper">
+        <div class="toast success">
+            <div class="container-1">
+
+            </div>
+            <div class="container-2">
+                <p>Success!</p>
+                <p>Your information has been submitted.</p>
+            </div>
+        </div>
+    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12"> 
-                <h1 style="color: #F00;"> Bootstrap Booking Form: </h1>
-                <div class="well">
-                    Fill out the form and click the submit button when complete...
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12"> 
+                    <h1 style="color: #F00;"> Bootstrap Booking Form: </h1>
+                    <div class="well">
+                        Fill out the form and click the submit button when complete...
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-primary">
+        <div class="container" id="primary-forms">
+            
+            <div class="col-md-6 bootstrap-body-panel" id="left-main-panel">
+                <div class="panel panel-primary" id="saik-panel-user">
                     <div class="panel-heading" style="color: #FFF;">
                         User:
                     </div>
@@ -42,24 +59,24 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="firstname" style="text-align: right;">First Name: </label>
+                                    <label for="firstName" style="text-align: right;">First Name: </label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="firstname" placeholder="Type first name...">
+                                    <input type="text" class="form-control" id="firstName" placeholder="Type first name...">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="lastname" style="text-align: right;">Last Name: </label>
+                                    <label for="lastName" style="text-align: right;">Last Name: </label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" id="lastname" placeholder="Type last name...">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Type last name...">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" id="saik-panel-contact">
                     <div class="panel-heading" style="color: #FFF;">
                         Contact:
                     </div>
@@ -78,14 +95,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" id="saik-panel-schedule">
                     <div class="panel-heading" style="color: #FFF;">
                         Schedule:
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label for="sel1" style="margin-left: 0;">Adults:</label>
-                            <select class="form-control" id="sel1">
+                            <label for="adults" style="margin-left: 0;">Adults:</label>
+                            <select class="form-control" id="adults" onchange="updateScheduleFields()">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -94,24 +111,18 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label style="margin-left: 0;">Check-In:</label>
-                                <div class="input-group date" id="datetimepicker1">
-                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <label  style="margin-left: 0;">Check-In:</label>
+                                <div>
+                                    <input type="date" id="checkin" name="checkin" class="check-datepicker" onchange="updateScheduleFields()">
                                 </div>
                                 <label for="days" style="margin-left: 0;">Days: </label>
                                 <input type="text" class="form-control" id="days" placeholder="Displays days..." disabled>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label style="margin-left: 0;">Check-Out:</label>
-                                    <div class="input-group date" id="datetimepicker2">
-                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" />
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
+                                    <label  style="margin-left: 0;">Check-Out:</label>
+                                    <div>
+                                        <input type="date" id="checkout" name="checkout" class="check-datepicker" onchange="updateScheduleFields()">
                                     </div>
                                     <label for="cost" style="margin-left: 0;">Cost($): </label>
                                     <input type="text" class="form-control" id="cost" placeholder="Displays cost..." disabled>
@@ -121,15 +132,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="panel panel-primary" >
+            <div class="col-md-6 bootstrap-body-panel" id="right-main-panel">
+                <div class="panel panel-primary"  id="saik-panel-other">
                     <div class="panel-heading">
                         Other:
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <div class="form-group">
                             <label>Message:</label>
-                            <textarea class="form-control" id="textarea" rows="21"></textarea>
+                            <textarea class="form-control" id="textarea" rows="22"></textarea>
                         </div>
                         <div class="form-group">
                             <label style="margin-left: 0;">Range:</label>
@@ -151,72 +162,22 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-lg-7">
-
+            <div class="col-md-7">
+                
             </div>
-            <div class="col-lg-5" style="display: flex;" >
-                <button class="btn btn-primary btn-lg" style="flex:50%">
+            <div class="col-md-5" style="display: flex;" >
+                <button class="btn btn-primary btn-lg" style="flex:50%; margin: 10px;" onclick="resetButtonPress()">
                     <span class="glyphicon glyphicon-erase"></span>
                     Reset
                 </button>
-                <button class="btn btn-success btn-lg" style="flex:50%">
+                <button class="btn btn-success btn-lg" style="flex:50%; margin: 10px;" onclick="submitButtonPress()">
                     <span class="glyphicon glyphicon-send"></span>
                     Submit
                 </button>
             </div>
         </div>
         <script>
-            $(function () {
-                var bindDatePicker = function() {
-                    $(".date").datetimepicker({
-                        format:'DD-MM-YYYY HH-mm',
-                        icons: {
-                            time: "fa fa-clock-o",
-                            date: "fa fa-calendar",
-                            up: "fa fa-arrow-up",
-                            down: "fa fa-arrow-down"
-                        }
-                    }).find('input:first').on("blur",function () {
-                        // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
-                        // update the format if it's yyyy-mm-dd
-                        var date = parseDate($(this).val());
-                        
-                        if (! isValidDate(date)) {
-                            //create date based on momentjs (we have that)
-                            date = moment().format('DD-MM-YYYY HH-mm');
-                        }
-                        
-                        $(this).val(date);
-                    });
-                }
-                
-                var isValidDate = function(value, format) {
-                    format = format || false;
-                    // lets parse the date to the best of our knowledge
-                    if (format) {
-                        value = parseDate(value);
-                    }
-                    
-                    var timestamp = Date.parse(value);
-                    
-                    return isNaN(timestamp) == false;
-                }
-                
-                var parseDate = function(value) {
-                    var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
-                    if (m)
-                    value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
-                    var h = d.getHours();
-                    h = (h < 10) ? ("0" + h) : h ;
-                    
-                    var m = d.getMinutes();
-                    m = (m < 10) ? ("0" + m) : m ;
-                    
-                    return value;
-                }
-                
-                bindDatePicker();
-            });
+            
         </script>
     </div>
 </body>
